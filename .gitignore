@@ -5,6 +5,8 @@ __pycache__/
 # Local dataset
 dataset/
 PACS/
+!datalist/PACS/
+!datalist/PACS/**
 
 # Generated experiment outputs
 experiments/
