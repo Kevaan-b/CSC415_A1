@@ -1,0 +1,50 @@
+# CSC415 A1: DG via ER Reproduction
+
+This repository reproduces part of:
+
+- Paper: **Domain Generalization via Entropy Regularization** (NeurIPS 2020)
+- Original code: https://github.com/sshan-zhao/DG_via_ER
+- Dataset mirror used for PACS: https://github.com/MachineLearning2020/Homework3-PACS
+
+Scope of this reproduction:
+
+- We reproduce **Table 6-style** experiments from the original paper.
+- Backbone: **ResNet-18**.
+- Targets considered: **art_painting** and **sketch** only (compute-constrained subset).
+
+## 1) Clone this repo and install dependencies
+
+```bash
+git clone https://github.com/Kevaan-b/CSC415_A1.git
+cd CSC415_A1
+pip install -r requirements.txt
+```
+
+## 2) Add the PACS dataset
+
+For convenience, we use the PACS mirror repo above.
+
+From the repo root:
+
+```bash
+git clone --depth 1 https://github.com/MachineLearning2020/Homework3-PACS.git
+mkdir -p dataset
+cp -a Homework3-PACS/PACS dataset/PACS
+```
+
+Expected structure:
+
+```text
+dataset/PACS/art_painting/...
+dataset/PACS/cartoon/...
+dataset/PACS/photo/...
+dataset/PACS/sketch/...
+```
+
+## 3) Run experiments
+
+```bash
+python a1_experiments.py
+```
+
+This script runs the configured reproduction and ablation batches and writes logs/results under experiment folders.
