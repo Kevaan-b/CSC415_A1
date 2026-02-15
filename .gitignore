@@ -1,0 +1,21 @@
+__pycache__/
+*.pyc
+*.pyo
+
+# Local dataset
+dataset/
+PACS/
+
+# Generated experiment outputs
+experiments/
+experiments_*/
+experiments_pacs_*/
+experiments_smoketest_*/
+
+# Model artifacts
+*.pth
+*.pt
+
+# Local junk
+.DS_Store
+.ipynb_checkpoints/
