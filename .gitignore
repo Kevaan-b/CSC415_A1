@@ -11,6 +11,8 @@ experiments/
 experiments_*/
 experiments_pacs_*/
 experiments_smoketest_*/
+!results/
+!results/**
 
 # Model artifacts
 *.pth
