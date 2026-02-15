@@ -48,3 +48,26 @@ python a1_experiments.py
 ```
 
 This script runs the configured reproduction and ablation batches and writes logs/results under experiment folders.
+
+## File Summary
+
+### What we kept the same from the original repo
+
+- `models/__init__.py`
+- `models/aux_models.py`
+- `models/model_factory.py`
+- `utils.py`
+- `datalist/PACS/*`
+
+### What we modified due to version differences
+
+- `models/resnet.py`
+- `train.py`
+- `data/dataset.py`
+
+### What we added for convenience of running experiments
+
+- `a1_experiments.py`: Runs the reproduction and no-augmentation ablation loops and organizes outputs by run folder.
+- `tsne_plot.py`: Creates domain t-SNE plots from saved checkpoints.
+- `requirements.txt`: pip dependencies used for local setup.
+- `results/`: Stores run details of experiments ran before hand without model checkpoints.
