@@ -8,7 +8,7 @@ This repository reproduces part of:
 
 Scope of this reproduction:
 
-- We reproduce **Table 6-style** experiments from the original paper.
+- I reproduce **Table 6-style** experiments from the original paper.
 - Backbone: **ResNet-18**.
 - Targets considered: **art_painting** and **sketch** only (compute-constrained subset).
 
@@ -22,7 +22,7 @@ pip install -r requirements.txt
 
 ## 2) Add the PACS dataset
 
-For convenience, we use the PACS mirror repo above.
+For convenience, I use the PACS mirror repo above.
 
 From the repo root:
 
@@ -51,7 +51,7 @@ This script runs the configured reproduction and ablation batches and writes log
 
 ## File Summary
 
-### What we kept the same from the original repo
+### What I kept the same from the original repo
 
 - `models/__init__.py`
 - `models/aux_models.py`
@@ -59,13 +59,13 @@ This script runs the configured reproduction and ablation batches and writes log
 - `utils.py`
 - `datalist/PACS/*`
 
-### What we modified due to version differences
+### What I modified due to version differences
 
 - `models/resnet.py`
 - `train.py`
 - `data/dataset.py`
 
-### What we added for convenience of running experiments
+### What I added for convenience of running experiments
 
 - `a1_experiments.py`: Runs the reproduction and no-augmentation ablation loops and organizes outputs by run folder.
 - `tsne_plot.py`: Creates domain t-SNE plots from saved checkpoints.
