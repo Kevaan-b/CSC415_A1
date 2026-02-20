@@ -11,7 +11,7 @@ from data.dataset import MyDataset, _dataset_info, get_val_transformer
 from models import model_factory
 
 # Default run setup.
-DEFAULT_CHECKPOINT = "./experiments_pacs_original_5run/run_0/resnet18/PACS/art_painting/best_model.pth"
+DEFAULT_CHECKPOINT = "./results/reproduction/run_0/resnet18/PACS/art_painting/best_model.pth"
 DEFAULT_BATCH_SIZE = 128
 DEFAULT_NUM_WORKERS = 0
 DEFAULT_MAX_POINTS = 2000

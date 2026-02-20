@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 import subprocess
 import sys
 
@@ -33,20 +34,12 @@ def run_train(run_id: int, ablation_noaug: bool) -> None:
 def run_tsne(exp_root: str, target: str) -> None:
     ckpt = f"{exp_root}/resnet18/PACS/{target}/best_model.pth"
     out = f"{exp_root}/resnet18/PACS/{target}/tsne_by_domain.png"
-    cmd = [
-        sys.executable,
-        "tsne_plot.py",
-        "--checkpoint",
-        ckpt,
-        "--out",
-        out,
-        "--domains",
-        *TSNE_DOMAINS,
-        "--plot_mode",
-        "domain",
-    ]
-    print("Running:", " ".join(cmd))
-    subprocess.run(cmd, check=True)
+    cmd = [sys.executable, "tsne_plot.py"]
+    env = dict(os.environ)
+    env["TSNE_CHECKPOINT"] = ckpt
+    env["TSNE_OUT"] = out
+    print("Running:", " ".join(cmd), f"(TSNE_CHECKPOINT={ckpt})")
+    subprocess.run(cmd, check=True, env=env)
 
 
 def main() -> None:
