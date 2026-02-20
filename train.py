@@ -45,6 +45,7 @@ def get_args():
     parser.add_argument("--num_classes", "-c", type=int, default=7, help="Number of classes")
     parser.add_argument("--network", choices=model_factory.nets_map.keys(), default="resnet18", help="Which network to use")
     parser.add_argument("--no_pretrained", action="store_true", help="Disable ImageNet pretrained backbone weights")
+    # Save outputs under a selectable experiment root.
     parser.add_argument("--exp_folder", default="experiments", help="Directory for logs and models")
     
     return parser.parse_args()
@@ -78,10 +79,12 @@ class Trainer:
         self.save_dir = os.path.join(self.base_dir, args.target)
         if not os.path.exists(self.save_dir):
             os.makedirs(self.save_dir)
+        # Save options for reproducibility.
         save_options(args, self.save_dir)
         self.log_file = os.path.join(self.save_dir, "loss_log.txt")
     
     def _save_checkpoint(self, filename, epoch, best_val, best_test):
+        # Store main metrics together with model weights.
         ckpt = {
             "epoch": int(epoch),
             "best_val": float(best_val),
@@ -263,12 +266,14 @@ class Trainer:
                 best_val = cur_val
                 best_test = cur_test
                 best_epoch = int(self.current_epoch)
+                # Checkpoint selected by validation accuracy.
                 self._save_checkpoint("best_model.pth", best_epoch, best_val, best_test)
             self.scheduler.step()
             
         val_res = self.results["val"]
         test_res = self.results["test"]
         idx_best = val_res.argmax()
+        # Save final model state and record best-val metrics.
         self._save_checkpoint(
             "final_model.pth",
             int(self.args.epochs - 1),

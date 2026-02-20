@@ -1,6 +1,8 @@
 from torch import nn
 from torch.utils import model_zoo
 from torchvision.models.resnet import BasicBlock, Bottleneck
+
+# Support both old and new torchvision APIs.
 try:
     # torchvision<0.13
     from torchvision.models.resnet import model_urls
@@ -22,10 +24,12 @@ except ImportError:
 from models.aux_models import aux_models
 
 def _load_pretrained(model, arch):
+    # Old torchvision path
     if model_urls is not None:
         model.load_state_dict(model_zoo.load_url(model_urls[arch]), strict=False)
         return
 
+    # New torchvision weights path
     if arch == "resnet18":
         builder = tv_resnet18
         weights = ResNet18_Weights
@@ -42,7 +46,7 @@ def _load_pretrained(model, arch):
         # torchvision>=0.13
         ref_model = builder(weights=weights.DEFAULT if weights is not None else None)
     except TypeError:
-        # torchvision<0.13 fallback
+        # torchvision<0.13
         ref_model = builder(pretrained=True)
     model.load_state_dict(ref_model.state_dict(), strict=False)
 

@@ -11,7 +11,7 @@ from data.dataset import MyDataset, _dataset_info, get_val_transformer
 from models import model_factory
 
 # Default run setup.
-DEFAULT_CHECKPOINT = "experiments_pacs_original_5run/run_0/resnet18/PACS/art_painting/best_model.pth"
+DEFAULT_CHECKPOINT = "./experiments_pacs_original_5run/run_0/resnet18/PACS/art_painting/best_model.pth"
 DEFAULT_BATCH_SIZE = 128
 DEFAULT_NUM_WORKERS = 0
 DEFAULT_MAX_POINTS = 2000
@@ -34,6 +34,7 @@ class DomainFlagDataset(Dataset):
 
 
 def _build_model(ckpt_args, state_dict, device):
+    # Rebuild the same backbone used during training
     network = ckpt_args.get("network", "resnet18")
     num_classes = int(ckpt_args.get("num_classes", 7))
     source_domains = ckpt_args.get("source", ["cartoon", "photo", "sketch"])
@@ -48,6 +49,7 @@ def _build_model(ckpt_args, state_dict, device):
 
 
 def _collect_features(model, ckpt_args, device):
+    # Read data paths and domains from checkpoint args
     transform = get_val_transformer(SimpleNamespace(image_size=int(ckpt_args.get("image_size", 224))))
     data_dir = ckpt_args.get("data_dir", "./dataset")
     datalist_dir = ckpt_args.get("datalist_dir", "./datalist")
@@ -57,13 +59,13 @@ def _collect_features(model, ckpt_args, device):
 
     datasets = []
 
-    # Source pool.
+    # Source domains
     for domain in source_domains:
         txt = os.path.join(datalist_dir, dataset_name, f"{domain}_test.txt")
         names, labels = _dataset_info(txt)
         datasets.append(DomainFlagDataset(names, labels, 0, transform, data_dir))
 
-    # Target domain.
+    # Target domain
     target_txt = os.path.join(datalist_dir, dataset_name, f"{target_domain}_test.txt")
     names, labels = _dataset_info(target_txt)
     datasets.append(DomainFlagDataset(names, labels, 1, transform, data_dir))
@@ -106,7 +108,7 @@ def _save_plot(embedding, domain_flags, out_path, target_domain):
     plt.xticks([])
     plt.yticks([])
 
-    # legend.
+    # legend
     source_patch = plt.Line2D([0], [0], marker="o", color="w", markerfacecolor="#1f77b4", markersize=6, label="source")
     target_patch = plt.Line2D([0], [0], marker="o", color="w", markerfacecolor="#17becf", markersize=6, label=target_domain)
     plt.legend(handles=[source_patch, target_patch], loc="best")
