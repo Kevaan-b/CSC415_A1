@@ -64,4 +64,4 @@ This script runs the configured reproduction and ablation batches and writes log
 - `a1_experiments.py`: Runs the reproduction and no-augmentation ablation loops and organizes outputs by run folder.
 - `tsne_plot.py`: Creates domain t-SNE plots from saved checkpoints.
 - `requirements.txt`: pip dependencies used for local setup.
-- `results/`: Stores run details of experiments ran before hand without model checkpoints.
+- `precomputed_results/`: Stores run details of experiments ran before hand without model checkpoints.
