@@ -6,11 +6,6 @@ This repository reproduces part of:
 - Original code: https://github.com/sshan-zhao/DG_via_ER
 - Dataset mirror used for PACS: https://github.com/MachineLearning2020/Homework3-PACS
 
-Scope of this reproduction:
-
-- I reproduce a section of Table 6 experiments from the original paper.
-- Backbone: ResNet-18.
-
 ## 1) Clone this repo and install dependencies
 
 ```bash
